@@ -21,3 +21,29 @@ def loading(msg, dur):
     print(f"{msg}...")
     wait(1/3)
     clearConsole()
+
+class Inventory:
+  def __init__(self):
+    self.inv = {
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0,
+      '':0
+    }
+
+  def getValue(self,food):
+    return self.inv[food]
+
+  def changeValue(self,item,num):
+    self.inv[item] += num
+
+

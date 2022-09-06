@@ -21,7 +21,7 @@ def loading(msg, dur):
     print(f"{msg}...")
     wait(1/3)
     clearConsole()
-
+    
 class Health:
   def __init__(self):
     self.health = 20

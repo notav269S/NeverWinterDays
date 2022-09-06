@@ -45,5 +45,3 @@ class Inventory:
 
   def changeValue(self,item,num):
     self.inv[item] += num
-
-

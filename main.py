@@ -21,3 +21,5 @@ def loading(msg, dur):
     print(f"{msg}...")
     wait(1/3)
     clearConsole()
+
+    

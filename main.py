@@ -36,7 +36,8 @@ class Inventory:
       'fig':0,
       'bacon':0,
       'ham':0,
-      'rice':0
+      'rice':0,
+      'money':100
     }
 
   def getValue(self,food):
@@ -48,6 +49,8 @@ class Inventory:
   def changeValue(self,item,num):
     self.inv[item] += num
     
+inv = Inventory()
+
 class Health:
   def __init__(self):
     self.health = 20
@@ -71,7 +74,7 @@ class Hunger:
     return self.hunger
   def verify(self):
     if self.hunger > 20:
-      self.hunger = 20
+      self.hunger = 20 
     elif self.hunger < 0:
       self.hunger = 0
     if self.hunger == 0:
@@ -104,7 +107,7 @@ class Shop:
         string = string + (f'[{item[0].upper()+item[1:]}][Available:|{self.stock[item]}|Cost:|₪{self.prices[price]}|]\n\n')
         break
     return string
-  def stockUpdate(self,value):
+  def update(self,value):
     for item in self.stock.key():
       self.stock[item] += value
   def newItem(self,name,avl,price):
@@ -113,4 +116,14 @@ class Shop:
   def delItem(self, name):
     del self.stock[name]
     del self.prices[name]
+  def calcPrice(self,item,quan):
+    try:
+      return self.price[item]*quan
+    except:
+      return False
+  def checkOutable(self,price):
+    if price > inv.getValue('money'):
+      return False
+    else:
+      return True
   

@@ -25,23 +25,26 @@ def loading(msg, dur):
 class Inventory:
   def __init__(self):
     self.inv = {
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0,
-      '':0
+      'Cheese':0,
+      'Bread':0,
+      "Mushroom Stew":0,
+      'Porridge':0,
+      'Water':0,
+      'Grapes':0,
+      'Milk':0,
+      'Apple':0,
+      'Fig':0,
+      'Bacon':0,
+      'Ham':0,
+      'Rice':0,
+      'Water':0
     }
 
   def getValue(self,food):
-    return self.inv[food]
+    try:
+      return self.inv[food]
+    except:
+      print("Invalid Input")
 
   def changeValue(self,item,num):
     self.inv[item] += num

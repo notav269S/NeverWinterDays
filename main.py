@@ -22,6 +22,32 @@ def loading(msg, dur):
     wait(1/3)
     clearConsole()
     
+class Inventory:
+  def __init__(self):
+    self.inv = {
+      'cheese':0,
+      'bread':0,
+      "mushroom stew":0,
+      'porridge':0,
+      'water':0,
+      'grapes':0,
+      'milk':0,
+      'apple':0,
+      'fig':0,
+      'bacon':0,
+      'ham':0,
+      'rice':0
+    }
+
+  def getValue(self,food):
+    try:
+      return self.inv[food]
+    except:
+      print("Invalid Input")
+
+  def changeValue(self,item,num):
+    self.inv[item] += num
+    
 class Health:
   def __init__(self):
     self.health = 20

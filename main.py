@@ -25,19 +25,18 @@ def loading(msg, dur):
 class Inventory:
   def __init__(self):
     self.inv = {
-      'Cheese':0,
-      'Bread':0,
-      "Mushroom Stew":0,
-      'Porridge':0,
-      'Water':0,
-      'Grapes':0,
-      'Milk':0,
-      'Apple':0,
-      'Fig':0,
-      'Bacon':0,
-      'Ham':0,
-      'Rice':0,
-      'Water':0
+      'cheese':0,
+      'bread':0,
+      "mushroom stew":0,
+      'porridge':0,
+      'water':0,
+      'grapes':0,
+      'milk':0,
+      'apple':0,
+      'fig':0,
+      'bacon':0,
+      'ham':0,
+      'rice':0
     }
 
   def getValue(self,food):

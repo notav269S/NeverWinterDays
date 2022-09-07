@@ -80,7 +80,7 @@ class Hunger:
   def changeHunger(self, val):
     self.hunger += val
     self.verify()
-
+    
 class UI:
   def __init__(self):
     pass
@@ -92,7 +92,6 @@ class UI:
     print(f'[{text}]')
   def midtr(self,text):
     return f'[{text}]'
-
   
 class Shop:
   def __init__(self):

@@ -22,6 +22,18 @@ def loading(msg, dur):
     wait(1/3)
     clearConsole()
 
+class UI:
+  def __init__(self):
+    pass
+  def divider(self):
+    print('▂▃▅▇█▓▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂')
+  def divideret(self):
+    return '▂▃▅▇█▓▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂'
+  def midt(self,text):
+    print(f'[{text}]')
+  def midtr(self,text):
+    return f'[{text}]'
+
 class Shop:
   def __init__(self):
     self.stock = {}
@@ -31,6 +43,7 @@ class Shop:
     for item in self.stock.keys():
       for price in self.prices.keys():
         string = string + (f'[{item[0].upper()+item[1:]}][Available:|{self.stock[item]}|Cost:|₪{self.prices[price]}|]\n\n')
+        break
     return string
   def stockUpdate(self,value):
     for item in self.stock.key():

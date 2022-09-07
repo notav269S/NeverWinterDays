@@ -55,7 +55,7 @@ class Health:
     return self.health
   def verify(self):
     if self.health > 20:
-      self.health = 20:
+      self.health = 20
     elif self.health < 0:
       self.health = 0
   def changeHealth(self, val):
@@ -71,7 +71,7 @@ class Hunger:
     return self.hunger
   def verify(self):
     if self.hunger > 20:
-      self.hunger = 20:
+      self.hunger = 20
     elif self.hunger < 0:
       self.hunger = 0
     if self.hunger == 0:
@@ -113,3 +113,4 @@ class Shop:
   def delItem(self, name):
     del self.stock[name]
     del self.prices[name]
+  

@@ -1,6 +1,8 @@
 from random import randint, choice
 from os import system
 from time import sleep
+import platform
+import json
 
 
 def wait(dur):
@@ -8,8 +10,10 @@ def wait(dur):
 
 
 def clearConsole():
-    system('clear')
-    system('cls')
+    if platform.system() == 'win32':
+        system('cls')
+    else:
+        system('clear')
 
 
 def loading(msg, dur):
@@ -52,6 +56,14 @@ class Inventory:
 
     def changeValue(self, item, num):
         self.inv[item] += num
+
+    def menu(self):
+        for item in self.inv.keys():
+            text = item[0].upper() + item[1:]
+            if item == 'mushroom stew':
+                text = 'Mushroom Stew'
+            print(f"[{text}]:[{self.getValue(item)}]")
+            continue
 
 
 inv = Inventory()
@@ -105,11 +117,11 @@ class UI:
 
     @staticmethod
     def divider():
-        print('▂▃▅▇█▓▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂')
+        print('══✿══╡°˖✧✿✧˖°╞══✿══')
 
     @staticmethod
     def dividerReturn():
-        return '▂▃▅▇█▓▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂'
+        return '══✿══╡°˖✧✿✧˖°╞══✿══'
 
     @staticmethod
     def midPrint(text):
@@ -118,13 +130,6 @@ class UI:
     @staticmethod
     def midReturn(text):
         return f'[{text}]'
-
-
-def checkOutPossible(price):
-    if price > inv.getValue('money'):
-        return False
-    else:
-        return True
 
 
 class Shop:
@@ -159,3 +164,50 @@ class Shop:
             return self.prices[item] * quan
         except KeyError:
             return False
+
+    @staticmethod
+    def checkOutPossible(price):
+        if price > inv.getValue('money'):
+            return False
+        else:
+            return True
+
+
+# Object Creation
+
+# Health is created as "health"
+
+ui = UI()
+hunger = Hunger()
+shop = Shop()
+
+print("Note: Caps DON'T Matter.")
+wait(2)
+clearConsole()
+
+pathtoFile = input("Please enter your system path to this folder. If it is already saved press enter: ")
+
+if pathtoFile == '':
+    with open('path.txt', 'w') as f:
+        f.write(pathtoFile)
+
+else:
+    pass
+
+running = True
+setup = True
+# So if you want to end the game do: running = False
+while setup:
+    clearConsole()
+    ui.divider()
+    print("SETUP: \nNew Save - L\nLoad Save - S\n")
+    command = input("[L/N]>>> ").lower()
+    if command == 'n':
+        clearConsole()
+        name = input("[Save Name]>>> ")
+        with open('path.txt', 'r') as f:
+            ptf = f.read()
+        with open(f'{ptf}/saves/{name}.json') as f:
+            pass
+
+quit()

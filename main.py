@@ -1,5 +1,6 @@
 from random import randint, choice
 from os import system
+import os
 from time import sleep
 import platform
 import json
@@ -173,6 +174,20 @@ class Shop:
             return True
 
 
+# To be changed as per game
+
+save_template = {
+    "inventory": {
+        "apple": 0,
+        "mushroomstew": 0
+    },
+    "achievements": {
+        "finish_tutorial": False,
+        "find_traders": False,
+        "get_iron_gear": False
+    }
+}
+
 # Object Creation
 
 # Health is created as "health"
@@ -185,11 +200,11 @@ print("Note: Caps DON'T Matter.")
 wait(2)
 clearConsole()
 
-pathtoFile = input("Please enter your system path to this folder. If it is already saved press enter: ")
+pathToFile = input("Please enter your system path to this folder. If it is already saved press enter: ")
 
-if pathtoFile == '':
+if pathToFile != '':
     with open('path.txt', 'w') as f:
-        f.write(pathtoFile)
+        f.write(pathToFile)
 
 else:
     pass
@@ -200,14 +215,22 @@ setup = True
 while setup:
     clearConsole()
     ui.divider()
-    print("SETUP: \nNew Save - L\nLoad Save - S\n")
+    print("SETUP: \nNew Save - N\nLoad Save - S\nDelete Save - D\n")
     command = input("[L/N]>>> ").lower()
     if command == 'n':
         clearConsole()
         name = input("[Save Name]>>> ")
         with open('path.txt', 'r') as f:
             ptf = f.read()
-        with open(f'{ptf}/saves/{name}.json') as f:
-            pass
+        with open(f'{ptf}/saves/{name}.json', 'w') as f:
+            json.dump(save_template, f)
+    elif command == 'd':
+        clearConsole()
+        name = input("[Save Name]>>> ")
+        with open('path.txt', 'r') as f:
+            ptf = f.read()
+        try:
+            os.remove(f"{ptf}/saves/{name}.json")
+        except:
 
 quit()

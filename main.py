@@ -151,13 +151,13 @@ class Shop:
         for item in self.stock.keys():
             self.stock[item] += value
 
-    def newItem(self, name, avl, price):
-        self.stock[name] = avl
-        self.prices[name] = price
+    def newItem(self, itemname, avl, price):
+        self.stock[itemname] = avl
+        self.prices[itemname] = price
 
-    def delItem(self, name):
-        del self.stock[name]
-        del self.prices[name]
+    def delItem(self, delname):
+        del self.stock[delname]
+        del self.prices[delname]
 
     @staticmethod
     def calcPrice(self, item, quan):
@@ -188,6 +188,8 @@ save_template = {
     }
 }
 
+curSave = {}
+
 # Object Creation
 
 # Health is created as "health"
@@ -211,12 +213,19 @@ else:
 
 running = True
 setup = True
+
+
+def game():
+    while running:
+        pass
+
+
 # So if you want to end the game do: running = False
 while setup:
     clearConsole()
     ui.divider()
-    print("SETUP: \nNew Save - N\nLoad Save - S\nDelete Save - D\n")
-    command = input("[L/N]>>> ").lower()
+    print("SETUP: \nNew Save - N\nLoad Save - L\nDelete Save - D\n")
+    command = input("[N/L/D]>>> ").lower()
     if command == 'n':
         clearConsole()
         name = input("[Save Name]>>> ")
@@ -224,13 +233,30 @@ while setup:
             ptf = f.read()
         with open(f'{ptf}/saves/{name}.json', 'w') as f:
             json.dump(save_template, f)
+            game()
     elif command == 'd':
         clearConsole()
         name = input("[Save Name]>>> ")
         with open('path.txt', 'r') as f:
             ptf = f.read()
         try:
-            os.remove(f"{ptf}/saves/{name}.json")
-        except:
-
+            conf = input("Confirmation[Y/N]>>> ").lower()
+            if conf == 'y':
+                os.remove(f"{ptf}/saves/{name}.json")
+                print('Deleted File.')
+                wait(1)
+            else:
+                print("Save not Deleted.")
+                wait(1)
+                continue
+        except FileNotFoundError:
+            print("That Save Doesn't Exist")
+    elif command == 'l':
+        clearConsole()
+        name = input("[Save Name]>>> ")
+        with open('path.txt', 'r') as f:
+            ptf = f.read()
+            with open(f'{ptf}/saves/{name}.json', 'r') as i:
+                curSave = i.read()
+                game()
 quit()

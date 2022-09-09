@@ -5,6 +5,8 @@ from time import sleep
 import platform
 import json
 
+inDungeon = False
+
 
 def wait(dur):
     sleep(dur)
@@ -18,7 +20,7 @@ def clearConsole():
 
 
 def loading(msg, dur):
-    for i in range(0, dur * 3):
+    for j in range(0, dur * 3):
         clearConsole()
         print(f"{msg}.")
         wait(1 / 3)
@@ -31,32 +33,46 @@ def loading(msg, dur):
         clearConsole()
 
 
+class PlayerStats:
+    def __init__(self):
+        self.stats = {
+            'combat': 0,
+            'defense': 0,
+            'xplevel': 0
+        }
+
+    def getAttrib(self, attrib):
+        try:
+            return self.stats[attrib]
+        except KeyError:
+            pass
+
+    def changeAttrib(self, attrib, num):
+        if attrib in self.stats:
+            self.stats[attrib] = num
+
+    def changeDict(self, dictionary):
+        self.stats = dictionary
+
+
 class Inventory:
     def __init__(self):
         self.inv = {
-            'cheese': 0,
-            'bread': 0,
-            "mushroom stew": 0,
-            'porridge': 0,
-            'water': 0,
-            'grapes': 0,
-            'milk': 0,
-            'apple': 0,
-            'fig': 0,
-            'bacon': 0,
-            'ham': 0,
-            'rice': 0,
-            'money': 100
+            'healpot': 0,
+            'strengthpot': 0,
+            'dungeon_key': 0,
+            'story_coins': 0
         }
 
     def getValue(self, food):
         try:
             return self.inv[food]
         except KeyError:
-            print("Invalid Input")
+            pass
 
     def changeValue(self, item, num):
-        self.inv[item] += num
+        if item in self.inv:
+            self.inv[item] += num
 
     def menu(self):
         for item in self.inv.keys():
@@ -66,8 +82,38 @@ class Inventory:
             print(f"[{text}]:[{self.getValue(item)}]")
             continue
 
+    def changeDict(self, dictionary):
+        self.inv = dictionary
+
 
 inv = Inventory()
+
+
+class Achievements:
+    ach = {
+        'enter_dungeon': False,
+        'get_iron': False,
+        'get_crystal': False,
+        'get_dragonic': False
+    }
+
+    def __int__(self):
+        pass
+
+    def changeAch(self, attrib, tf):
+        if tf is None:
+            if self.ach[attrib]:
+                self.ach[attrib] = False
+            else:
+                self.ach[attrib] = True
+        else:
+            self.ach[attrib] = tf
+
+    def changeDict(self, dictionary):
+        self.ach = dictionary
+
+    def retDict(self):
+        return self.ach
 
 
 class Health:
@@ -185,10 +231,13 @@ save_template = {
         "finish_tutorial": False,
         "find_traders": False,
         "get_iron_gear": False
+    },
+    "attributes": {
+        "combat": 0,
+        "defense": 0,
+        "xplevel": 0
     }
 }
-
-curSave = {}
 
 # Object Creation
 
@@ -197,6 +246,7 @@ curSave = {}
 ui = UI()
 hunger = Hunger()
 shop = Shop()
+achievements = Achievements()
 
 print("Note: Caps DON'T Matter.")
 wait(2)
@@ -255,7 +305,27 @@ while setup:
                 setup = False
 
 while running:
+    clearConsole()
+    ui.divider()
+    print("Commands:\nA - Achievements\nI - Inventory\nS - Shop\nD - Dungeon\nS - Story\nSQ - Save and Quit\n")
     command = input("[Command]>>> ").lower()
-    
+    if command == 'a':
+        ui.divider()
+        clearConsole()
+        for key in achievements.retDict().keys():
+            val = ''
+            if key == 'enter_dungeon':
+                val = 'Dungeon Dweller'
 
+            elif key == 'get_iron':
+                val = 'Suited'
+
+            elif key == 'get_crystal':
+                val = 'Bright Shine'
+
+            elif key == 'get_dragonic':
+                val = 'Fly and Fry'
+
+            print(f'{ui.midReturn(val)}: {ui.midReturn(achievements.retDict()[key])}')
+        conf = input("Enter to Continue: ")
 quit()

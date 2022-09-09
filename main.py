@@ -214,12 +214,6 @@ else:
 running = True
 setup = True
 
-
-def game():
-    while running:
-        pass
-
-
 # So if you want to end the game do: running = False
 while setup:
     clearConsole()
@@ -233,7 +227,7 @@ while setup:
             ptf = f.read()
         with open(f'{ptf}/saves/{name}.json', 'w') as f:
             json.dump(save_template, f)
-            game()
+            setup = False
     elif command == 'd':
         clearConsole()
         name = input("[Save Name]>>> ")
@@ -258,5 +252,10 @@ while setup:
             ptf = f.read()
             with open(f'{ptf}/saves/{name}.json', 'r') as i:
                 curSave = i.read()
-                game()
+                setup = False
+
+while running:
+    command = input("[Command]>>> ").lower()
+    
+
 quit()
